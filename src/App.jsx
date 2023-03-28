@@ -5,7 +5,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { ChakraProvider } from "@chakra-ui/react";
 import Home from './components/Home';
-import CategoryDetail from './components/CategoryDetails';
 import ItemDetails from './components/ItemDetails';
 
 function App() {
