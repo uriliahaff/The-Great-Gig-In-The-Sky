@@ -67,7 +67,7 @@ const ItemListContainer = () => {
             <Stack mt='6' spacing='3'>
             <Link to={`${"/items/"+producto.id}`}>
             <Heading size='md'>{producto.title}</Heading>
-    </Link>
+           </Link>
               <Text color='blue.600' fontSize='2xl'>
                 ${producto.price}
               </Text>
