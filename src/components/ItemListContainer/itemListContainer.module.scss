@@ -2,3 +2,21 @@
     text-align: center;
     padding: 20px 250px;
 }
+
+.spinnerContain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1000px;
+    margin: auto;
+}
+
+.imgContainer {
+    height: 400px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.container{
+    margin: 100px;
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import styles from "./ItemDetails.module.css";
-
+import { Spinner } from '@chakra-ui/react'
 const ItemDetails = () => {
 
   const[producto, setProducto] = useState({})
@@ -37,7 +37,7 @@ const ItemDetails = () => {
 
 
   if(loading){
-    return <h2>Loading...</h2>
+    return  <div className={styles.spinnerContain}><Spinner size='xl' /></div> 
   }
 
   return (

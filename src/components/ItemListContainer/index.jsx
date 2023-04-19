@@ -1,10 +1,10 @@
 import styles from "./itemListContainer.module.scss"
 
-import { ChakraProvider } from "@chakra-ui/react";
-import { Heading } from '@chakra-ui/react'
+import {Spinner, Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Divider, Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
+import { MdAddShoppingCart, MdBuildCircle } from "react-icons/md"
 import ItemCard from "../ItemCard"
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
@@ -43,17 +43,46 @@ const ItemListContainer = () => {
 
 
   if(loading){
-    return <h2>Loading...</h2>
+    return  <div className={styles.spinnerContain}><Spinner size='xl' /></div> 
   }
 
 
 
   return (
-    <div>
-      <Heading className={styles.greetingContainer} >ItemListContainer</Heading>
+   
+   <div className={styles.container}>
+      
+      <SimpleGrid columns={[3, null, 4]} spacing={4} >
+
+
       {productos.map((producto)=>
-          <ItemCard key={producto.id} producto={producto}/>
+          <Card key={producto.id}>
+          <CardBody>
+            <Image
+            className={styles.imgContainer}
+              src={producto.image}
+              alt={producto.description}
+              borderRadius='lg'
+            />
+            <Stack mt='6' spacing='3'>
+            <Link to={`${"/items/"+producto.id}`}>
+            <Heading size='md'>{producto.title}</Heading>
+    </Link>
+              <Text color='blue.600' fontSize='2xl'>
+                ${producto.price}
+              </Text>
+            </Stack>
+          </CardBody>
+          <Divider />
+          <CardFooter>
+          <Button leftIcon={<MdAddShoppingCart />} colorScheme='blue' variant='solid'>
+              Add To Cart
+          </Button>
+          </CardFooter>
+        </Card>
     )}
+
+</SimpleGrid>
       </div>
   )
 }
