@@ -3,15 +3,16 @@ import styles from "./itemListContainer.module.scss"
 import {Spinner, Button, ButtonGroup, Card, CardBody, CardFooter, CardHeader, Divider, Heading, Image, SimpleGrid, Stack, Text } from '@chakra-ui/react'
 import { MdAddShoppingCart, MdBuildCircle } from "react-icons/md"
 import ItemCard from "../ItemCard"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
+
+import { CartContext } from "../../contexts/CartContext"
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const[loading, setLoading] = useState(true);
   const {id} = useParams();
   var URL='';
-  console.log(id);
 
   if(!id){
     URL = "https://fakestoreapi.com/products";
@@ -31,6 +32,14 @@ const ItemListContainer = () => {
         }
   }
 
+  const { addItem } = useContext(CartContext);
+
+  const handleAddToCart = (item) => {
+   addItem(item);
+   console.log("Agregar producto: "+item.name);
+  };
+
+
   useEffect(() => {
     getProductos();  
   }, [id])
@@ -45,8 +54,6 @@ const ItemListContainer = () => {
   if(loading){
     return  <div className={styles.spinnerContain}><Spinner size='xl' /></div> 
   }
-
-
 
   return (
    
@@ -75,7 +82,7 @@ const ItemListContainer = () => {
           </CardBody>
           <Divider />
           <CardFooter>
-          <Button leftIcon={<MdAddShoppingCart />} colorScheme='blue' variant='solid'>
+          <Button leftIcon={<MdAddShoppingCart />} colorScheme='blue' variant='solid' onClick={() => handleAddToCart({ id: producto.id, name: producto.title, price: producto.price, image: producto.image })}>
               Add To Cart
           </Button>
           </CardFooter>

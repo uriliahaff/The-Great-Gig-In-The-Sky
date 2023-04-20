@@ -13,39 +13,58 @@ import {
    DrawerOverlay, 
    useDisclosure
   } from "@chakra-ui/react";
-  import React from 'react'
+
+  import React, { useContext } from 'react';
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Badge } from '@chakra-ui/react'
+import { CartContext } from "../../contexts/CartContext";
+import CartDrawerItem from "../CartDrawerItem";
 
-const CartWidget = ({quantity}) => {
+const CartWidget = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   
+  const { cart, removeItem, clearCart, totalItems  } = useContext(CartContext);
+
+  const handleRemoveItem = (itemId) => {
+    removeItem(itemId);
+  };
+
+  const handleClearCart = () => {
+    clearCart();
+  };
+
+
   return (
     <ChakraProvider>
     <div className={styles.container}>
       <AiOutlineShoppingCart onClick={onOpen} className={styles.cart}/>
-      <Badge className={styles.badge}>{quantity}</Badge>
+      <Badge className={styles.badge}>{totalItems}</Badge>
     </div>
-    <Drawer
+    <Drawer 
       isOpen={isOpen}
       placement='right'
       onClose={onClose}
       finalFocusRef={btnRef}
     >
       <DrawerOverlay />
-      <DrawerContent>
+      <DrawerContent className={styles.drawer}>
         <DrawerCloseButton />
         <DrawerHeader>Carrito</DrawerHeader>
 
         <DrawerBody>
-          <h1>Lista Carrito</h1>
+        {cart.map((item) => ( 
+          
+          <CartDrawerItem item={item} key={item.id} />
+
+        ))}
         </DrawerBody>
 
         <DrawerFooter>
-        <Link to={`${"checkout"}`}><Button onClick={onClose} colorScheme='blue'>Chekout</Button></Link>
+        <Button variant='outline' mr={5} mb={1} colorScheme='red' onClick={handleClearCart}>Vaciar carrito</Button>
+        <Link to={`${"checkout"}`}><Button mb={1}  onClick={onClose} colorScheme='blue'>Chekout</Button></Link>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

@@ -13,13 +13,15 @@ import Home from './components/Home';
 import ItemDetails from './components/ItemDetails';
 import Checkout from './components/Checkout';
 import React from 'react';
-import ItemCards from './components/ItemCards';
+import Footer from './components/Footer';
+
+import { CartProvider } from './contexts/CartContext';
 
 
 function App() {
 
   return (
-
+    <CartProvider>
     <ChakraProvider>
         <div>
           <Navbar logo="https://www.linkpicture.com/q/logo_744.png"/>
@@ -37,8 +39,10 @@ function App() {
         <Route path='/404' element={<h2>Error 404: Not founrd!</h2>}/>
     </Routes>
 
-
+    <Footer/>
     </ChakraProvider>
+    </CartProvider>
+
   )
 }
 

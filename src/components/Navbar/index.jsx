@@ -32,7 +32,7 @@ const Navbar = ({logo}) => {
             <a href="#">Nosotros</a>
             <a href="#">Contacto</a>
           </div>
-          <CartWidget quantity={10} />
+          <CartWidget />
       </div>
     </ChakraProvider>
   )
