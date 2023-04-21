@@ -1,5 +1,5 @@
-import { Grid, GridItem, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverBody, Icon, Text, Button  } from '@chakra-ui/react'
-import React, { useContext } from 'react'
+import { Grid, GridItem, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverBody, Icon, Text, Button, FormControl, FormLabel, Input  } from '@chakra-ui/react'
+import React, { useContext, useState } from 'react'
 import styles from "./checkout.module.scss"
 import { CartContext } from '../../contexts/CartContext';
 import ItemCheckout from '../ItemCheckout';
@@ -10,8 +10,19 @@ import { Link } from 'react-router-dom';
 
 const Checkout = () => {
 
-  const { cart, cartTotal} = useContext(CartContext);
+  const { cart, cartTotal, totalItems} = useContext(CartContext);
+  const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
 
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleConfirmEmailChange = (event) => {
+    setConfirmEmail(event.target.value);
+  };
+
+  const isFormEmpty = email === "" || confirmEmail === ""
 
   return (
     <>
@@ -43,9 +54,44 @@ const Checkout = () => {
 </GridItem>
 
   <GridItem  className={styles.cardGeneral} rowSpan={4} colSpan={2}  bg='white'> 
-    
+  <h1  className={styles.resumenText}>Datos de compra</h1>
 
+  <div className={styles.form}>
+
+   <FormControl pt={1} isRequired>
+    <FormLabel>Nombre</FormLabel>
+    <Input placeholder='Nombre' />
+  </FormControl>
   
+  <FormControl pt={3} isRequired>
+    <FormLabel>Apellido</FormLabel>
+    <Input placeholder='Apellido' />
+  </FormControl>
+
+  <FormControl pt={3} isRequired>
+    <FormLabel>Telefono</FormLabel>
+    <Input placeholder='Telefono' />
+  </FormControl>
+
+  <FormControl pt={3} isRequired>
+    <FormLabel>Email</FormLabel>
+    <Input 
+    placeholder='Email'
+    value={email}
+    onChange={handleEmailChange} />
+  </FormControl>
+
+  <FormControl pt={3} isRequired>
+    <FormLabel>Confirmar email</FormLabel>
+    <Input placeholder='Confirmar email' 
+    value={confirmEmail}
+     onChange={handleConfirmEmailChange}
+     />
+  </FormControl>
+
+  </div>
+
+
   </GridItem>
 
   <GridItem className={styles.cardGeneral}  rowSpan={2} colSpan={2} bg='white' > 
@@ -62,10 +108,12 @@ const Checkout = () => {
   
   <div className={styles.btnContainer}>
 
+  <Link to={`${"/order"}`}>
+      <Button className={styles.button} isDisabled={totalItems === 0 ||  email !== confirmEmail || isFormEmpty } variant='solid'>
+        Finalizar compra
+      </Button>
+    </Link>
 
-  <Button className={styles.button}  variant='solid'>
-    Finalizar compra
-  </Button>
   <Link to={`${"/"}`}>
     <h4>Seguir comprando</h4>
   </Link>

@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import styles from "./ItemDetails.module.css";
-import { Spinner } from '@chakra-ui/react'
+import { Button, Grid, GridItem, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spinner } from '@chakra-ui/react'
+import { CartContext } from '../../contexts/CartContext';
+import { EmailIcon } from '@chakra-ui/icons';
+import { MdAddShoppingCart } from 'react-icons/md';
 const ItemDetails = () => {
 
   const[producto, setProducto] = useState({})
   const[loading, setLoading] = useState(true)
   const {id} = useParams();
+  const {addItem} = useContext(CartContext);
+  const [quantity, setQuantity] = useState(1);
 
   console.log(id);
 
@@ -29,6 +34,24 @@ const ItemDetails = () => {
     getProducto();  
   }, [])
   
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+
+    for (let i = 0; i < quantity; i++) { 
+      addItem({id: producto.id , name: producto.title, price: producto.price, image: producto.image})
+    }
+    // Agregar el item al carrito con la cantidad seleccionada
+    setQuantity(1)
+  };
 
   if(!producto){
     return <Navigate to="/404" />
@@ -41,13 +64,59 @@ const ItemDetails = () => {
   }
 
   return (
-    <div className={styles.container}>
-    <h1>{producto.title}</h1>
-    <img src={producto.image} alt={producto.title} width="200" height="250"/>
-    <h2>${producto.price}</h2>
-    <p>Descripcion: {producto.description}</p>
-    <p>Categoria: {producto.category}</p>
-  </div>
+    <>
+    
+    <Grid
+      h='800px'
+      templateRows='repeat(6, 1fr)'
+      templateColumns='repeat(5, 1fr)'
+      gap={4}
+      mb={6}
+      mt={6}
+      mr={6}
+      ml={6}
+    >
+
+  <GridItem  className={styles.container}   rowSpan={6} colSpan={4} bg='white'>
+
+    <img src={producto.image}/> 
+
+
+</GridItem>
+
+  <GridItem  className={styles.container} rowSpan={6} colSpan={1} pt={2}  bg='white'> 
+    
+    <h2>{producto.title}</h2>
+    <h3>{producto.category}</h3>
+    <h2>$ {producto.price}</h2>
+
+    
+    <NumberInput  isReadOnly={true} className={styles.input} size='md' maxW={32}  value={quantity} min={1} >
+      <NumberInputField />
+        <NumberInputStepper>
+        <NumberIncrementStepper onClick={handleIncrement}/>
+        <NumberDecrementStepper onClick={handleDecrement}/>
+        </NumberInputStepper>
+    </NumberInput>
+  
+  <Button mt={5} mb={3} className={styles.btn} onClick={handleAddToCart} leftIcon={<MdAddShoppingCart />} colorScheme='teal' variant='solid'>
+    Agregar al carrito
+  </Button>
+
+    <p className={styles.p}>
+      {producto.description}
+    </p>
+
+  </GridItem>
+
+  
+
+  
+
+</Grid>
+    
+    </>
+
   )
 }
 

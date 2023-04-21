@@ -16,6 +16,7 @@ import React from 'react';
 import Footer from './components/Footer';
 
 import { CartProvider } from './contexts/CartContext';
+import Order from './components/Order';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Route path='/category/:id' element={<ItemListContainer />}/>
         <Route path='/items/:id' element={<ItemDetails/>}/>
         <Route path='/checkout' element={<Checkout/>}/>
+        <Route path='/order' element={<Order/>}/>
 
         <Route path='/404' element={<h2>Error 404: Not founrd!</h2>}/>
     </Routes>
