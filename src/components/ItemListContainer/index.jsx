@@ -50,11 +50,13 @@ const ItemListContainer = () => {
 
   useEffect(() => {
     if (!id) {
+      console.log("No hay id");
       getProductos();
     } else {
+      console.log("Hay id "+id);
       getProductosByCategory();
     }
-  }, []);
+  }, [id]);
 
   const { addItem } = useContext(CartContext);
 

@@ -16,7 +16,7 @@ const footerData = [
       { label: "Guitarras", href: "#" },
       { label: "Bajos", href: "#" },
       { label: "Teclados", href: "#" },
-      { label: "Baterias", href: "#" },
+      { label: "Otros", href: "#" },
     ],
   },
   {
@@ -24,9 +24,9 @@ const footerData = [
     href: "#",
     links: [
       { label: "Inicio", href: "#" },
-      { label: "Ofertas", href: "#" },
-      { label: "Nosotros", href: "#" },
+      { label: "Productos", href: "#" },
       { label: "Contacto", href: "#" },
+      { label: "Acerca", href: "#" },
     ],
   },
   {

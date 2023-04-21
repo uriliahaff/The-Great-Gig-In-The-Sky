@@ -10,6 +10,8 @@ import ItemDetails from "./components/ItemDetails";
 import Checkout from "./components/Checkout";
 import React from "react";
 import Footer from "./components/Footer";
+import Contact from "./components/Contact";
+import About from "./components/About";
 
 import { CartProvider } from "./contexts/CartContext";
 import Order from "./components/Order";
@@ -24,12 +26,14 @@ function App() {
 
         <Routes>
           <Route path="/home" element={<Home />} />
-          <Route path="/" element={<ItemListContainer />} />
+          <Route path="/" element={<Home />} />
           <Route path="/items" element={<ItemListContainer />} />
           <Route path="/category/:id" element={<ItemListContainer />} />
           <Route path="/items/:id" element={<ItemDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order" element={<Order />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
 
           <Route path="/404" element={<h2>Error 404: Not founrd!</h2>} />
         </Routes>
