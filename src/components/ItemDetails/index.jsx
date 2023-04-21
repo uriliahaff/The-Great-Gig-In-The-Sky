@@ -3,8 +3,12 @@ import { Navigate, useParams } from 'react-router-dom'
 import styles from "./ItemDetails.module.css";
 import { Button, Grid, GridItem, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spinner } from '@chakra-ui/react'
 import { CartContext } from '../../contexts/CartContext';
-import { EmailIcon } from '@chakra-ui/icons';
 import { MdAddShoppingCart } from 'react-icons/md';
+
+import {  doc, getDoc } from 'firebase/firestore'
+import db from '../../../db/firebase-config.js'
+
+
 const ItemDetails = () => {
 
   const[producto, setProducto] = useState({})
@@ -17,16 +21,16 @@ const ItemDetails = () => {
 
   
   const getProducto = async () => {
-    try {
-
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-    const data = await response.json();
-    setProducto(data);
-    setLoading(false)
-        } catch (error) {
-          setProducto(null)
-          console.log(error);
-        }
+    const itemDoc = doc(db, "items", id);
+    const item = await getDoc(itemDoc);
+    if(item.data())
+    {
+      setProducto(item.data());
+      setLoading(false);
+    }
+    else{
+        console.log("No such document!");
+    }
   }
 
   

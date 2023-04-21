@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "firebase": "^9.20.0",
     "framer-motion": "^4.1.17",
     "git": "^0.1.5",
     "react": "^18.2.0",
