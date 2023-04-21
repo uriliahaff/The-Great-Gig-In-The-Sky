@@ -3,8 +3,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import {getFirestore} from "firebase/firestore"
-
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -13,7 +12,7 @@ const firebaseConfig = {
   projectId: "thegreatgiginthesky",
   storageBucket: "thegreatgiginthesky.appspot.com",
   messagingSenderId: "824936512129",
-  appId: "1:824936512129:web:6f43e56eca88b5ca73ab80"
+  appId: "1:824936512129:web:6f43e56eca88b5ca73ab80",
 };
 
 // Initialize Firebase

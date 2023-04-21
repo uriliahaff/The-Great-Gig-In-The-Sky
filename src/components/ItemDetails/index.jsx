@@ -1,43 +1,47 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate, useParams } from "react-router-dom";
 import styles from "./ItemDetails.module.css";
-import { Button, Grid, GridItem, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spinner } from '@chakra-ui/react'
-import { CartContext } from '../../contexts/CartContext';
-import { MdAddShoppingCart } from 'react-icons/md';
+import {
+  Button,
+  Grid,
+  GridItem,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  Spinner,
+} from "@chakra-ui/react";
+import { CartContext } from "../../contexts/CartContext";
+import { MdAddShoppingCart } from "react-icons/md";
 
-import {  doc, getDoc } from 'firebase/firestore'
-import db from '../../../db/firebase-config.js'
-
+import { doc, getDoc } from "firebase/firestore";
+import db from "../../../db/firebase-config.js";
 
 const ItemDetails = () => {
-
-  const[producto, setProducto] = useState({})
-  const[loading, setLoading] = useState(true)
-  const {id} = useParams();
-  const {addItem} = useContext(CartContext);
+  const [producto, setProducto] = useState({});
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+  const { addItem } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
 
   console.log(id);
 
-  
   const getProducto = async () => {
     const itemDoc = doc(db, "items", id);
     const item = await getDoc(itemDoc);
-    if(item.data())
-    {
+    if (item.data()) {
       setProducto(item.data());
       setLoading(false);
+    } else {
+      console.log("No such document!");
     }
-    else{
-        console.log("No such document!");
-    }
-  }
+  };
 
-  
   useEffect(() => {
-    getProducto();  
-  }, [])
-  
+    getProducto();
+  }, []);
+
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -49,79 +53,94 @@ const ItemDetails = () => {
   };
 
   const handleAddToCart = () => {
-
-    for (let i = 0; i < quantity; i++) { 
-      addItem({id: producto.id , name: producto.title, price: producto.price, image: producto.image})
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: producto.id,
+        name: producto.title,
+        price: producto.price,
+        image: producto.image,
+      });
     }
     // Agregar el item al carrito con la cantidad seleccionada
-    setQuantity(1)
+    setQuantity(1);
   };
 
-  if(!producto){
-    return <Navigate to="/404" />
+  if (!producto) {
+    return <Navigate to="/404" />;
   }
 
-
-
-  if(loading){
-    return  <div className={styles.spinnerContain}><Spinner size='xl' /></div> 
+  if (loading) {
+    return (
+      <div className={styles.spinnerContain}>
+        <Spinner size="xl" />
+      </div>
+    );
   }
 
   return (
     <>
-    
-    <Grid
-      h='800px'
-      templateRows='repeat(6, 1fr)'
-      templateColumns='repeat(5, 1fr)'
-      gap={4}
-      mb={6}
-      mt={6}
-      mr={6}
-      ml={6}
-    >
+      <Grid
+        h="800px"
+        templateRows="repeat(6, 1fr)"
+        templateColumns="repeat(5, 1fr)"
+        gap={4}
+        mb={6}
+        mt={6}
+        mr={6}
+        ml={6}
+      >
+        <GridItem
+          className={styles.container}
+          rowSpan={6}
+          colSpan={4}
+          bg="white"
+        >
+          <img src={producto.image} />
+        </GridItem>
 
-  <GridItem  className={styles.container}   rowSpan={6} colSpan={4} bg='white'>
+        <GridItem
+          className={styles.container}
+          rowSpan={6}
+          colSpan={1}
+          pt={2}
+          bg="white"
+        >
+          <h2>{producto.title}</h2>
+          <h3>{producto.category}</h3>
+          <h2>$ {producto.price}</h2>
 
-    <img src={producto.image}/> 
+          <NumberInput
+            isReadOnly={true}
+            className={styles.input}
+            size="md"
+            maxW={32}
+            value={quantity}
+            min={1}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper onClick={handleIncrement} />
+              <NumberDecrementStepper onClick={handleDecrement} />
+            </NumberInputStepper>
+          </NumberInput>
 
+          <Button
+            mt={5}
+            mb={3}
+            className={styles.btn}
+            onClick={handleAddToCart}
+            leftIcon={<MdAddShoppingCart />}
+            colorScheme="teal"
+            variant="solid"
+          >
+            Agregar al carrito
+          </Button>
 
-</GridItem>
-
-  <GridItem  className={styles.container} rowSpan={6} colSpan={1} pt={2}  bg='white'> 
-    
-    <h2>{producto.title}</h2>
-    <h3>{producto.category}</h3>
-    <h2>$ {producto.price}</h2>
-
-    
-    <NumberInput  isReadOnly={true} className={styles.input} size='md' maxW={32}  value={quantity} min={1} >
-      <NumberInputField />
-        <NumberInputStepper>
-        <NumberIncrementStepper onClick={handleIncrement}/>
-        <NumberDecrementStepper onClick={handleDecrement}/>
-        </NumberInputStepper>
-    </NumberInput>
-  
-  <Button mt={5} mb={3} className={styles.btn} onClick={handleAddToCart} leftIcon={<MdAddShoppingCart />} colorScheme='teal' variant='solid'>
-    Agregar al carrito
-  </Button>
-
-    <p className={styles.p}>
-      {producto.description}
-    </p>
-
-  </GridItem>
-
-  
-
-  
-
-</Grid>
-    
+          <p className={styles.p}>{producto.description}</p>
+        </GridItem>
+      </Grid>
     </>
+  );
+};
 
-  )
-}
-
-export default ItemDetails
+export default ItemDetails;

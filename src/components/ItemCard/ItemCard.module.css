@@ -1,29 +1,27 @@
-.container{
-    text-align: center;
-    background-color: white;
-    padding: 0.5rem;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: auto;
-    margin-left: auto;
-    border-radius: 10px ;
-    width: 40%;
-
+.container {
+  text-align: center;
+  background-color: white;
+  padding: 0.5rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 10px;
+  width: 40%;
 }
 .container h1 {
-font-size: 20px;
-font-weight: bold;
-
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .container h2 {
-    font-size: 15px;    
-    }
+  font-size: 15px;
+}
 
-.container img{
-    width: 200px;
-    height: 150px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.container img {
+  width: 200px;
+  height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
