@@ -1,0 +1,22 @@
+.img{
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    object-fit: contain;
+}
+
+.center{
+    text-align: center;
+}
+
+.container{
+    border-bottom: solid 1px #ccc;
+}
+
+.bold{
+    font-weight: bold;
+  }
+
+  .input{
+    margin: auto;
+  }

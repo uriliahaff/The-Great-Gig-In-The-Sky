@@ -41,7 +41,7 @@ const CartWidget = () => {
     <ChakraProvider>
     <div className={styles.container}>
       <AiOutlineShoppingCart onClick={onOpen} className={styles.cart}/>
-      <Badge className={styles.badge}>{totalItems}</Badge>
+      <Badge  onClick={onOpen} className={styles.badge}>{totalItems}</Badge>
     </div>
     <Drawer 
       isOpen={isOpen}

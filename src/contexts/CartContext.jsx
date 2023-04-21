@@ -10,6 +10,7 @@ export const CartProvider = ({children}) => {
     const addItem = (item) => {
       const existingItem = cart.find((cart) => cart.id === item.id);
 
+
       if (existingItem) {
         setCart((prevCartItems) =>
           prevCartItems.map((cart) =>
@@ -25,7 +26,6 @@ export const CartProvider = ({children}) => {
         ]);
       }
         console.log("Vamos a agregar el item: "+item.name);
-
         toast({
           title: 'Item agregado.',
           description: item.name,
@@ -38,8 +38,12 @@ export const CartProvider = ({children}) => {
       };
 
       const removeItem = (itemId) => {
-        const updatedCartItems = cart.filter((item) => item.id !== itemId);
-        setCart(updatedCartItems);
+        const updatedCartItems = cart.map((cart) =>
+        cart.id === itemId
+          ? { ...cart, quantity: cart.quantity - 1, totalPrice: cart.totalPrice - cart.price }
+          : cart
+      ).filter((cart) => cart.quantity > 0);
+      setCart(updatedCartItems);
       };
 
       const clearCart = () => {
@@ -74,6 +78,8 @@ export const CartProvider = ({children}) => {
         }, 0);
       };
       
+      const cartTotal = cart.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity, 0);
+
 
     return (
         <CartContext.Provider 
@@ -85,6 +91,7 @@ export const CartProvider = ({children}) => {
             incrementItem, 
             decrementItem,
             totalItems: getTotalItems(),
+            cartTotal,
           }}
         >
             {children}
