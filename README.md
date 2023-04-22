@@ -24,10 +24,10 @@ Basado en la famosa cancion de uno de los grupos de rock mas influyentes de la h
 
 ## Estadísticas :chart_with_upwards_trend:	
 
-* +15k code lines / +15k de lineas de codigo 👨‍💻
-* +250 work hours / +250 horas de trabajo :alarm_clock:
-* +100 cofee cups / +100 tazas de cafe :coffee:
-* +15 no sleep nights / +15 noches sin dormir 🚫 :sleeping:
+* +7.5k de lineas de codigo 👨‍💻
+* +8 semanas de trabajo :alarm_clock:
+* +125 tazas de cafe :coffee:
+* +2 Partidos de la Scaloneta no vistos 🚫 ⚽ ⭐⭐⭐
 
 ## Autores :man:
 
