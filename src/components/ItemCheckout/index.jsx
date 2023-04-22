@@ -25,16 +25,16 @@ const ItemCheckout = ({ item }) => {
         ml={5}
         gap={6}
       >
-        <GridItem h="10">
+        <GridItem h="20">
           <img src={item.image} className={styles.img} />{" "}
         </GridItem>
-        <GridItem h="10">
+        <GridItem h="20">
           <p className={styles.bold}>{item.name}</p>{" "}
         </GridItem>
-        <GridItem className={styles.center} h="10">
+        <GridItem className={styles.center} h="20">
           <p>${item.price}</p>
         </GridItem>
-        <GridItem className={styles.center} h="10">
+        <GridItem className={styles.center} h="20">
           <NumberInput
             isReadOnly={true}
             className={styles.input}
@@ -50,7 +50,7 @@ const ItemCheckout = ({ item }) => {
             </NumberInputStepper>
           </NumberInput>
         </GridItem>
-        <GridItem className={styles.center} h="10">
+        <GridItem className={styles.center} h="20">
           <p>${item.price * item.quantity}</p>{" "}
         </GridItem>
       </Grid>

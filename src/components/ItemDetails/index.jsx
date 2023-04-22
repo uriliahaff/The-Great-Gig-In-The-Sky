@@ -39,8 +39,9 @@ const ItemDetails = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     getProducto();
-  }, []);
+  }, [id]);
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);

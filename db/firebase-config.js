@@ -12,7 +12,7 @@ const firebaseConfig = {
   projectId: "thegreatgiginthesky",
   storageBucket: "thegreatgiginthesky.appspot.com",
   messagingSenderId: "824936512129",
-  appId: "1:824936512129:web:6f43e56eca88b5ca73ab80",
+  appId: "1:824936512129:web:6f43e56eca88b5ca73ab80"
 };
 
 // Initialize Firebase

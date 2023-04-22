@@ -1,7 +1,55 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styles from "./order.module.css"
+import { addDoc, collection} from "firebase/firestore";
+import db from "../../../db/firebase-config.js";
+import { CartContext } from '../../contexts/CartContext';
+import { Spinner } from '@chakra-ui/react';
+import { Navigate } from 'react-router-dom';
 
 const Order = () => {
+  const { cart, clearCart, totalItems } = useContext(CartContext);
+  const [orderID, setOderID] = useState('');
+  const [orderCart, setOrderCart] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const itemsRef = collection(db, "orders");
+
+  const addOrder = async () => {
+
+    if(totalItems > 0) {
+      console.log("addOrder");
+      const date = new Date().toLocaleString();
+      const docData = {
+        products: cart,
+        date: date
+      };
+      const docRef = await addDoc(itemsRef, docData);
+      const docId = docRef.id;
+      setOderID(docId)
+      setOrderCart(cart);
+      clearCart();
+      setLoading(false);
+    }
+    else{
+      return <Navigate to="/" />;
+    }
+  }
+
+  useEffect(() => {
+    addOrder()
+  }, []);
+
+
+
+
+  if (loading) {
+    return (
+      <div className={styles.spinnerContain}>
+        <Spinner size="xl" />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
         
@@ -15,8 +63,14 @@ const Order = () => {
          <p  className={styles.message}>Muchas gracias por su compra en <strong>The Great Gig In The Sky</strong>. Su compra llegara en 5 dias habiles.</p> 
          </div> 
          <div  className={styles.actions}>
-            <h2>Numero de orden:</h2>
-            <h2>Orden:</h2>
+            <h2>Numero de orden: <span>{orderID}</span></h2>
+            <u>  <h2>Orden:             </h2> </u>
+
+            {orderCart.map((producto) => (
+              <p className={styles.prods}>{producto.quantity} x {producto.name}</p>
+        ))}
+
+
         </div> 
         </div> 
             </div>

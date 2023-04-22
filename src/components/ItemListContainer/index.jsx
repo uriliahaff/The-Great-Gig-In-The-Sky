@@ -49,6 +49,7 @@ const ItemListContainer = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     if (!id) {
       console.log("No hay id");
       getProductos();
@@ -64,10 +65,6 @@ const ItemListContainer = () => {
     addItem(item);
     console.log("Agregar producto: " + item.name);
   };
-
-  useEffect(() => {
-    getProductos();
-  }, [id]);
 
   if (!productos) {
     return <Navigate to="/404" />;

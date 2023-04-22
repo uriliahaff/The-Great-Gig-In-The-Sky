@@ -8,6 +8,8 @@ import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
+    <>
+
     <Box textAlign="center" maxWidth="700px" mx="auto" py={20}>
       <Heading as="h1" size="xl" mb={6}>
         Bienvenidos a "The Great Gig In The Sky"
@@ -69,7 +71,12 @@ const Home = () => {
           </Box>
         </Box>
       </Box>
+      
     </Box>
+
+    <Heading textAlign="center" maxWidth="700px" mx="auto" py={20} as="h1" size="xl" mb={6}>Productos destacados</Heading>
+
+    </>
   );
 }
 
