@@ -42,4 +42,10 @@ The Great Gig In The Sky es 100% libre de uso.
 
 ## Tests
 🌐[Test Web](https://proyecto-final-wheat.vercel.app/)
-
+    
+<pre>
+<i>   "There's no dark side of the moon really. Matter of fact, it's all dark" </i> - <strong>Gerry O'Driscoll</strong>
+</pre>
+    
+<p align="center">
+  <img src="https://i.etsystatic.com/6732417/r/il/ce74a0/4731587804/il_fullxfull.4731587804_8o3o.jpg" height="200" style="max-width:100%; height:auto;" /> </p>
