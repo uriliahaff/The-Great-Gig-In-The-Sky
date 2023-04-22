@@ -20,11 +20,24 @@ import { Link, useParams } from "react-router-dom";
 import db from "../../../db/firebase-config.js";
 import { CartContext } from "../../contexts/CartContext";
 
-const ItemListContainer = () => {
+const ItemListContainer = ({destacado}) => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const itemsRef = collection(db, "items");
+
+  const getDestacados = async () => {
+    const filteredItemsRef = query(itemsRef, where("destacado", "==", true));
+
+    const itemsCollection = await getDocs(filteredItemsRef);
+    const items = itemsCollection.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setProductos(items);
+    setLoading(false);
+  };
+
 
   const getProductos = async () => {
     const itemsCollection = await getDocs(itemsRef);
@@ -49,13 +62,18 @@ const ItemListContainer = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
-    if (!id) {
-      console.log("No hay id");
-      getProductos();
-    } else {
-      console.log("Hay id "+id);
-      getProductosByCategory();
+
+    if(destacado){
+      getDestacados();
+    }else{
+      setLoading(true);
+      if (!id) {
+        console.log("No hay id");
+        getProductos();
+      } else {
+        console.log("Hay id "+id);
+        getProductosByCategory();
+      }
     }
   }, [id]);
 
@@ -78,6 +96,11 @@ const ItemListContainer = () => {
     );
   }
 
+  const formatCurrency = (value) => {
+    return `$${value.toLocaleString("es-AR")}`;
+  };
+  
+
   return (
     <div className={styles.container}>
       <SimpleGrid columns={[3, null, 4]} spacing={4}>
@@ -95,7 +118,7 @@ const ItemListContainer = () => {
                   <Heading size="md">{producto.title}</Heading>
                 </Link>
                 <Text color="blue.600" fontSize="2xl">
-                  ${producto.price}
+                  {formatCurrency(producto.price)}
                 </Text>
               </Stack>
             </CardBody>

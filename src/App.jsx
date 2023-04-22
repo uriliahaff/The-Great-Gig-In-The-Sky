@@ -15,6 +15,7 @@ import About from "./components/About";
 
 import { CartProvider } from "./contexts/CartContext";
 import Order from "./components/Order";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
 
-          <Route path="/404" element={<h2>Error 404: Not founrd!</h2>} />
+          <Route path="/404" element={<Error/>} />
         </Routes>
 
         <Footer />

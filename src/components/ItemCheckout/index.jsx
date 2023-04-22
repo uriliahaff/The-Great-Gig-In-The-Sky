@@ -14,6 +14,11 @@ import { CartContext } from "../../contexts/CartContext";
 const ItemCheckout = ({ item }) => {
   const { addItem, removeItem } = useContext(CartContext);
 
+  const formatCurrency = (value) => {
+    return `$${value.toLocaleString("es-AR")}`;
+  };
+
+
   return (
     <div>
       <Grid
@@ -32,7 +37,7 @@ const ItemCheckout = ({ item }) => {
           <p className={styles.bold}>{item.name}</p>{" "}
         </GridItem>
         <GridItem className={styles.center} h="20">
-          <p>${item.price}</p>
+          <p>                  {formatCurrency(item.price)}</p>
         </GridItem>
         <GridItem className={styles.center} h="20">
           <NumberInput
@@ -51,7 +56,7 @@ const ItemCheckout = ({ item }) => {
           </NumberInput>
         </GridItem>
         <GridItem className={styles.center} h="20">
-          <p>${item.price * item.quantity}</p>{" "}
+          <p>{formatCurrency(item.price * item.quantity)}</p>{" "}
         </GridItem>
       </Grid>
     </div>

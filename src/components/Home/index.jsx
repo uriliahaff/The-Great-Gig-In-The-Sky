@@ -1,10 +1,6 @@
 import { Box, Button, Heading, Text, Grid, GridItem } from "@chakra-ui/react";
-import { FaMusic } from "react-icons/fa";
-import { IoMdCart } from "react-icons/io";
-import { MdEventSeat } from "react-icons/md";
-import { AiOutlineSearch } from "react-icons/ai";
-import { FiHeart } from "react-icons/fi";
 import { NavLink } from "react-router-dom";
+import ItemListContainer from "../ItemListContainer";
 
 const Home = () => {
   return (
@@ -74,8 +70,9 @@ const Home = () => {
       
     </Box>
 
-    <Heading textAlign="center" maxWidth="700px" mx="auto" py={20} as="h1" size="xl" mb={6}>Productos destacados</Heading>
+    <Heading textAlign="center" maxWidth="700px" mx="auto" py={5} as="h1" size="xl" >Productos destacados</Heading>
 
+    <ItemListContainer destacado={true}/>
     </>
   );
 }

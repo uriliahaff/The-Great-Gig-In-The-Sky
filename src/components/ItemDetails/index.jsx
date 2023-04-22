@@ -25,7 +25,6 @@ const ItemDetails = () => {
   const { addItem } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
 
-  console.log(id);
 
   const getProducto = async () => {
     const itemDoc = doc(db, "items", id);
@@ -35,6 +34,7 @@ const ItemDetails = () => {
       setLoading(false);
     } else {
       console.log("No such document!");
+      setProducto({id:-1});
     }
   };
 
@@ -66,7 +66,7 @@ const ItemDetails = () => {
     setQuantity(1);
   };
 
-  if (!producto) {
+  if(producto.id===-1){
     return <Navigate to="/404" />;
   }
 
@@ -77,6 +77,10 @@ const ItemDetails = () => {
       </div>
     );
   }
+
+  const formatCurrency = (value) => {
+    return `$${value.toLocaleString("es-AR")}`;
+  };
 
   return (
     <>
@@ -108,7 +112,7 @@ const ItemDetails = () => {
         >
           <h2>{producto.title}</h2>
           <h3>{producto.category}</h3>
-          <h2>$ {producto.price}</h2>
+          <h2>                  {formatCurrency(producto.price)}</h2>
 
           <NumberInput
             isReadOnly={true}

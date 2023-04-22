@@ -3,8 +3,8 @@ import styles from "./order.module.css"
 import { addDoc, collection} from "firebase/firestore";
 import db from "../../../db/firebase-config.js";
 import { CartContext } from '../../contexts/CartContext';
-import { Spinner } from '@chakra-ui/react';
-import { Navigate } from 'react-router-dom';
+import { Button, Spinner } from '@chakra-ui/react';
+import { NavLink, Navigate } from 'react-router-dom';
 
 const Order = () => {
   const { cart, clearCart, totalItems } = useContext(CartContext);
@@ -21,7 +21,8 @@ const Order = () => {
       const date = new Date().toLocaleString();
       const docData = {
         products: cart,
-        date: date
+        date: date,
+        state: "Generada"
       };
       const docRef = await addDoc(itemsRef, docData);
       const docId = docRef.id;
@@ -70,9 +71,12 @@ const Order = () => {
               <p className={styles.prods}>{producto.quantity} x {producto.name}</p>
         ))}
 
+<NavLink to="/items">    <Button mt={6} w={700} colorScheme="yellow" size="lg" > Seguir comprando     </Button> </NavLink>
 
         </div> 
+        
         </div> 
+
             </div>
 
 

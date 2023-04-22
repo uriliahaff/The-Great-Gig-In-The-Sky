@@ -56,7 +56,7 @@ const CartDrawer = () => {
 
           <DrawerFooter>
             <Link to={`${"checkout"}`}>
-              <>aadsdasd</> <Button colorScheme="blue">Chekout</Button>
+              <Button colorScheme="blue">Chekout</Button>
             </Link>
           </DrawerFooter>
         </DrawerContent>

@@ -24,8 +24,25 @@ import { Link } from "react-router-dom";
 
 const Checkout = () => {
   const { cart, cartTotal, totalItems } = useContext(CartContext);
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
+  };
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -35,7 +52,13 @@ const Checkout = () => {
     setConfirmEmail(event.target.value);
   };
 
-  const isFormEmpty = email === "" || confirmEmail === "";
+  const formatCurrency = (value) => {
+    return `$${value.toLocaleString("es-AR")}`;
+  };
+
+
+
+  const isFormEmpty = name === "" || lastName === "" || phone === "" || email === "" || confirmEmail === "";
 
   return (
     <>
@@ -98,17 +121,20 @@ const Checkout = () => {
             <div className={styles.form}>
               <FormControl pt={1} isRequired>
                 <FormLabel>Nombre</FormLabel>
-                <Input placeholder="Nombre" />
+                <Input placeholder="Nombre"
+                onChange={handleNameChange} />
               </FormControl>
 
               <FormControl pt={3} isRequired>
                 <FormLabel>Apellido</FormLabel>
-                <Input placeholder="Apellido" />
+                <Input placeholder="Apellido" 
+                onChange={handleLastNameChange} />
               </FormControl>
 
               <FormControl pt={3} isRequired>
                 <FormLabel>Telefono</FormLabel>
-                <Input placeholder="Telefono" />
+                <Input placeholder="Telefono"
+                onChange={handlePhoneChange} />
               </FormControl>
 
               <FormControl pt={3} isRequired>
@@ -139,9 +165,9 @@ const Checkout = () => {
           >
             <div className={styles.resumenContainer}>
               <h1 className={styles.resumenText}>Resumen de la compra</h1>
-              <h3 className={styles.subtotalText}>Subtotal: ${cartTotal}</h3>
+              <h3 className={styles.subtotalText}>Subtotal: {formatCurrency(cartTotal)}</h3>
               <h4></h4>
-              <h3 className={styles.totalText}>Total: ${cartTotal}</h3>
+              <h3 className={styles.totalText}>Total: {formatCurrency(cartTotal)}</h3>
 
               <div className={styles.btnContainer}>
                 <Link to={`${"/order"}`}>
