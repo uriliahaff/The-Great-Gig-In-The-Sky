@@ -22,7 +22,7 @@ const ItemDetails = () => {
   const [producto, setProducto] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const { addItem } = useContext(CartContext);
+  const { addItemByQuantity } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
 
 
@@ -54,14 +54,15 @@ const ItemDetails = () => {
   };
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addItem({
+
+      addItemByQuantity({
         id: producto.id,
         name: producto.title,
         price: producto.price,
         image: producto.image,
+        quantity: quantity
       });
-    }
+    
     // Agregar el item al carrito con la cantidad seleccionada
     setQuantity(1);
   };

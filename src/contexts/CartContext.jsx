@@ -38,6 +38,40 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+    const addItemByQuantity = (item) => {
+    const existingItem = cart.find((cart) => cart.id === item.id);
+
+    if (existingItem) {
+      setCart((prevCartItems) =>
+        prevCartItems.map((cart) =>
+          cart.id === item.id ? { ...cart, quantity: cart.quantity + item.quantity } : cart
+        )
+      );
+    } else {
+      setCart((prevCartItems) => [
+        ...prevCartItems,
+        {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          quantity: item.quantity,
+        },
+      ]);
+    }
+    console.log("Vamos a agregar el item: " + item.name);
+    toast({
+      title: "Item agregado.",
+      description: item.name,
+      status: "success",
+      duration: 2000,
+      position: "top-right",
+      isClosable: true,
+    });
+  };
+
+
+
   const removeItem = (itemId) => {
     const updatedCartItems = cart
       .map((cart) =>
@@ -101,6 +135,7 @@ export const CartProvider = ({ children }) => {
         decrementItem,
         totalItems: getTotalItems(),
         cartTotal,
+        addItemByQuantity,
       }}
     >
       {children}
